@@ -25,16 +25,18 @@ async def read_movie(movie_id: str):
     return await get_or_set_cache(cache_key, fetch_movie, 120)
 
 
-# @router.post("/movies/")
-# async def create_movie(movie: MovieCreate):
-#     result = await database.collection.insert_one(movie.model_dump())
-#     return {"id": str(result.inserted_id)}
+@router.post("/movies/")
+async def create_movie(movie: MovieCreate):
+    result = await database.collection.insert_one(movie.model_dump())
+    return {"id": str(result.inserted_id)}
 
 
 
-# @router.delete("/movies/{movie_id}")
-# async def delete_movie(movie_id: str):
-#     result = await database.collection.delete_one({"_id": ObjectId(movie_id)})
-#     if result.deleted_count == 0:
-#         raise HTTPException(status_code=404, detail="Movie not found")
-#     return {"message": "Movie deleted"}
+@router.delete("/movies/{movie_id}")
+async def delete_movie(movie_id: str):
+    result = await database.collection.delete_one({"_id": ObjectId(movie_id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Movie not found")
+    return {"message": "Movie deleted"}
+
+
